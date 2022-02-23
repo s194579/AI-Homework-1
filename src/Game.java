@@ -20,12 +20,17 @@ public class Game {
 
     public boolean goalTest(){
         int[] stateData = gameState.getData();
+        boolean p1Done = true; //Default values
+        boolean p2Done = true;
         for(int i = 1; i < 7; i++){
             if(stateData[i] != 0 ){
-
+                p1Done = false;
+            }
+            if(stateData[i+7] != 0){
+                p2Done = false;
             }
         }
-        return true;
+        return p1Done || p2Done;
     }
 
     public State performMove(){
