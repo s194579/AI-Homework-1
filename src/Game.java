@@ -36,8 +36,7 @@ public class Game {
     }
 
     public State performMove(int house){
-        takeSeeds(house);
-        int location = (house + 1) % 14;
+        int location = takeSeeds(house);
 
         //The while loop puts seeds into the proper houses and stores.
         while(seeds > 0){
@@ -56,8 +55,8 @@ public class Game {
             }else{
                 //If we have placed all seeds into a non-empty (>1) house, we must continue our move.
                 if(gameState.getData()[location]>1 && location != 7 && location != 0){
-                    takeSeeds(location);
-                    location = (location + 1) % 14;
+                    location = takeSeeds(location);
+
                 }
             }
         }
@@ -78,12 +77,15 @@ public class Game {
         return gameState;
     }
     private void addSeed(int location){
+        //This method places a seed in a house or store
         gameState.getData()[location]++;
         seeds--;
+
     }
-    private void takeSeeds(int location){
+    private int takeSeeds(int location){
+        //This method takes all seeds from a house
         seeds = gameState.getData()[location];
         gameState.getData()[location] = 0;
+        return (location + 1) % 14;
     }
-
 }
