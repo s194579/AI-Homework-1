@@ -3,7 +3,7 @@ public class UIPlayer implements Player{
 
     public int getMove(State state) {
         uiController.printState(state);
-        return uiController.getUserMove(state.isP1Turn());
+        return uiController.getUserMove(state);
     }
 
 

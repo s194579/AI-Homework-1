@@ -17,7 +17,8 @@ public class UIController {
     }
 
 
-    public int getUserMove(boolean isP1sTurn){
+    public int getUserMove(State state){
+        boolean isP1sTurn = state.isP1Turn();
         String column;
         while (true){
             if (isP1sTurn){
@@ -28,13 +29,18 @@ public class UIController {
             System.out.println("Choose the letter corresponding to the house to pick from.");
             column = scanner.nextLine();
             if (!allowedColumns.contains(column)){
-                System.out.println("You can only choose A, B, C, D, E or F");
+                System.out.println("You can only choose A, B, C, D, E or F.\n");
                 continue;
             }
-            break;
-        }
-        int index = allowedColumns.indexOf(column);
-        return isP1sTurn ? index + 1 :  13 - index;
 
+            int listIndex = allowedColumns.indexOf(column);
+            int index = isP1sTurn ? listIndex + 1 :  13 - listIndex;
+            boolean legalHouse = index <= 13 &&  state.getData()[index] != 0;
+            if (!legalHouse){
+                System.out.println("You cannot choose an empty house.\n");
+                continue;
+            }
+            return index;
+        }
     }
 }
