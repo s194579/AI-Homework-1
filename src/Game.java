@@ -47,7 +47,7 @@ public class Game {
             }else if (location == 0 && !gameState.isP1Turn()){
                 addSeed(location);
             //No matter whose turn it is, we put a seed any house we come across
-            }else{
+            }else if (location != 0 && location != 7){
                 addSeed(location);
             }
             if(seeds != 0) {
