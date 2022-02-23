@@ -36,32 +36,27 @@ public class Game {
     }
 
     public State performMove(int house){
-        seeds = gameState.getData()[house];
-        gameState.getData()[house] = 0;
+        takeSeeds(house);
         int location = (house + 1) % 14;
 
         //The while loop puts seeds into the proper houses and stores.
         while(seeds > 0){
             //We put seeds into p1's store if it is their turn.
             if (location == 7 && gameState.isP1Turn()){
-                gameState.getData()[location]++;
-                seeds--;
+                addSeed(location);
             //We put seeds into p2's store if it is their turn.
             }else if (location == 0 && !gameState.isP1Turn()){
-                gameState.getData()[location]++;
-                seeds--;
+                addSeed(location);
             //No matter whose turn it is, we put a seed any house we come across
             }else{
-                gameState.getData()[location]++;
-                seeds--;
+                addSeed(location);
             }
             if(seeds != 0) {
                 location = (location + 1) % 14;
             }else{
                 //If we have placed all seeds into a non-empty (>1) house, we must continue our move.
                 if(gameState.getData()[location]>1 && location != 7 && location != 0){
-                    seeds = gameState.getData()[location];
-                    gameState.getData()[location] = 0;
+                    takeSeeds(location);
                     location = (location + 1) % 14;
                 }
             }
