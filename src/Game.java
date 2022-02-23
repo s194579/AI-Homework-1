@@ -5,9 +5,7 @@ public class Game {
         //Setting up the initial state
         int[] initialState = new int[14];
         initialState = initialSetUp(initialState);
-        gameState = new State(initialState);
-
-
+        gameState = new State(initialState,true);
     }
 
     private int[] initialSetUp(int[] state) {
@@ -20,8 +18,8 @@ public class Game {
         return state;
     }
 
-    private boolean goalTest(State state){
-        int[] stateData = state.getData();
+    public boolean goalTest(){
+        int[] stateData = gameState.getData();
         for(int i = 1; i < 7; i++){
             if(stateData[i] != 0 ){
 
@@ -31,6 +29,10 @@ public class Game {
     }
 
     public State performMove(){
+        return gameState;
+    }
+
+    public State getState(){
         return gameState;
     }
 
