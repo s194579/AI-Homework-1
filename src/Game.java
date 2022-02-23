@@ -1,5 +1,6 @@
 public class Game {
     private State gameState;
+    private int seeds;
 
     public Game() {
         //Setting up the initial state
@@ -34,7 +35,7 @@ public class Game {
     }
 
     public State performMove(int house){
-        int seeds = gameState.getData()[house];
+        seeds = gameState.getData()[house];
         gameState.getData()[house] = 0;
         int location = (house + 1) % 14;
 
@@ -75,6 +76,14 @@ public class Game {
 
     public State getState(){
         return gameState;
+    }
+    private void addSeed(int location){
+        gameState.getData()[location]++;
+        seeds--;
+    }
+    private void takeSeeds(int location){
+        seeds = gameState.getData()[location];
+        gameState.getData()[location] = 0;
     }
 
 }
