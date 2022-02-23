@@ -33,7 +33,43 @@ public class Game {
         return p1Done || p2Done;
     }
 
-    public State performMove(int move){
+    public State performMove(int house){
+        int seeds = gameState.getData()[house];
+        gameState.getData()[house] = 0;
+        int location = (house + 1) % 14;
+
+        // puting seeds into house and stores
+        while(seeds > 0){
+            if (location == 7 && gameState.isP1Turn()){
+                gameState.getData()[location]++;
+                seeds--;
+            //
+            }else if (location == 0 && !gameState.isP1Turn()){
+                gameState.getData()[location]++;
+                seeds--;
+            }else{
+                gameState.getData()[location]++;
+                seeds--;
+            }
+            if(seeds != 0) {
+                location = (location + 1) % 14;
+            }else{
+                if(gameState.getData()[location]>1 && location != 7 && location != 0){
+                    seeds = gameState.getData()[location];
+                    gameState.getData()[location] = 0;
+                    location = (location + 1) % 14;
+                }
+            }
+        }
+        if(gameState.isP1Turn()){
+            if (location != 7){
+                gameState.setP1Turn(false);
+            }
+        }else{
+            if (location != 0){
+                gameState.setP1Turn(true);
+            }
+        }
         return gameState;
     }
 
