@@ -1,6 +1,8 @@
 public class GameController {
     private Game game;
-    private Player p1, p2;
+    public Player p1, p2;
+
+
 
     public void start(){
         game = new Game();
