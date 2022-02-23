@@ -82,7 +82,7 @@ public class Game {
         seeds--;
 
     }
-    private void takeSeeds(int location){
+    private int takeSeeds(int location){
         //This method takes all seeds from a house
         seeds = gameState.getData()[location];
         gameState.getData()[location] = 0;
