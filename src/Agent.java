@@ -1,6 +1,6 @@
 public class Agent implements Player{
 
-    public int getMove() {
+    public int getMove(State state) {
         return 0;
     }
 }

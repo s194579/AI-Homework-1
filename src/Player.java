@@ -1,3 +1,3 @@
 public interface Player {
-    public int getMove();
+    public int getMove(State state);
 }
