@@ -77,11 +77,13 @@ public class Game {
         return gameState;
     }
     private void addSeed(int location){
+        //This method places a seed in a house or store
         gameState.getData()[location]++;
         seeds--;
 
     }
-    private int takeSeeds(int location){
+    private void takeSeeds(int location){
+        //This method takes all seeds from a house
         seeds = gameState.getData()[location];
         gameState.getData()[location] = 0;
         return (location + 1) % 14;
