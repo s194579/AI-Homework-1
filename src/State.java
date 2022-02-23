@@ -3,10 +3,10 @@ public class State {
     private boolean p1Turn;
 
     public State(int[] array, boolean turn){
-        //0: player1 store
         //1-6: player1 houses
-        //7: player2 store
+        //7: player1 store
         //8-14: player2 houses
+        //0: player2 store
         data = array;
         p1Turn = turn;
     }
