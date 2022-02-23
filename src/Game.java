@@ -24,9 +24,14 @@ public class Game {
         int[] stateData = state.getData();
         for(int i = 1; i < 7; i++){
             if(stateData[i] != 0 ){
-                
+
             }
         }
+        return true;
+    }
+
+    public State performMove(){
+        return gameState;
     }
 
 }
