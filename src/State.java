@@ -16,4 +16,8 @@ public class State {
     public boolean isP1Turn(){
         return p1Turn;
     }
+
+    public void setP1Turn(boolean b) {
+        p1Turn = b;
+    }
 }
