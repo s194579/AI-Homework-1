@@ -33,7 +33,7 @@ public class Game {
         return p1Done || p2Done;
     }
 
-    public State performMove(){
+    public State performMove(int move){
         return gameState;
     }
 
