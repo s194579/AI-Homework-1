@@ -1,27 +1,27 @@
 public class State {
-    private int[] p1Houses;
-    private int[] p2Houses;
-    private int p1Store;
-    private int p2Store;
+    private int[] humanHouses;
+    private int[] agentHouses;
+    private int humanStore;
+    private int agentStore;
 
     public State(int[] p1H, int[] p2H, int p1S, int p2S){
-        p1Houses = p1H;
-        p2Houses = p2H;
-        p1Store = p1S;
-        p2Store = p2S;
+        humanHouses = p1H;
+        agentHouses = p2H;
+        humanStore = p1S;
+        agentStore = p2S;
     }
 
-    public int[] getP1Houses(){
-        return p1Houses;
+    public int[] getHumanHouses(){
+        return humanHouses;
     }
-    public int[] getP2Houses(){
-        return p2Houses;
+    public int[] getAgentHouses(){
+        return agentHouses;
     }
-    public int getP1Store(){
-        return p1Store;
+    public int getHumanStore(){
+        return humanStore;
     }
 
-    public int getP2Store() {
-        return p2Store;
+    public int getAgentStore() {
+        return agentStore;
     }
 }

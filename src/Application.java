@@ -1,5 +1,9 @@
 public class Application {
     public static void main(String[] args) {
-        System.out.println("test");
+        //Create Game
+        //Create Player
+        //Create Agent
+        //Create Game Controller
+        //Create UI controller
     }
 }
