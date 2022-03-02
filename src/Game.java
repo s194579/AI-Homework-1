@@ -54,7 +54,6 @@ public class Game {
                 //If we have placed all seeds into a non-empty (>1) house, we must continue our move.
                 if(gameState.getData()[location]>1 && location != 7 && location != 0){
                     location = takeSeeds(gameState,location);
-
                 }
             }
         }

@@ -10,7 +10,7 @@ public class Agent implements Player{
         ArrayList<Integer> moveSeq = new ArrayList<Integer>();
         //Make each index be the move it chooses at a given node.
         //This way we may move all the way through our composite node.
-        
+
         return moveSeq;
     }
 
