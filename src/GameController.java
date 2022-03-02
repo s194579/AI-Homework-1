@@ -1,21 +1,22 @@
 public class GameController {
     private Game game;
+    private State gameState;
     public Player p1, p2;
 
 
     public void start(){
         game = new Game();
-
-        while (!game.goalTest()){
-            UIController.printState(game.getState());
-            boolean p1Turn = game.getState().isP1Turn();
+        gameState = game.initialSetUp();
+        while (!game.goalTest(gameState)){
+            UIController.printState(gameState);
+            boolean p1Turn = gameState.isP1Turn();
             int nextMove;
             if (p1Turn){
-                nextMove = p1.getMove(game.getState());
+                nextMove = p1.getMove(gameState);
             } else {
-                nextMove = p2.getMove(game.getState());
+                nextMove = p2.getMove(gameState);
             }
-            game.performMove(nextMove);
+            game.performMove(gameState,nextMove);
         }
     }
 }

@@ -1,27 +1,23 @@
 import java.util.ArrayList;
 
 public class Game {
-    private State gameState;
+
     private int seeds;
 
-    public Game() {
-        //Setting up the initial state
+
+    //Setting up the initial state
+    public State initialSetUp() {
         int[] initialState = new int[14];
-        initialState = initialSetUp(initialState);
-        gameState = new State(initialState,true);
-    }
-
-    private int[] initialSetUp(int[] state) {
-        state[0] = 0;
-        state[7] = 0;
+        initialState[0] = 0;
+        initialState[7] = 0;
         for(int i = 1; i < 7; i++){
-            state[i] = 4;
-            state[i+7] = 4;
+            initialState[i] = 4;
+            initialState[i+7] = 4;
         }
-        return state;
+        return new State(initialState,true);
     }
 
-    public boolean goalTest(){
+    public boolean goalTest(State gameState){
         int[] stateData = gameState.getData();
         boolean p1Done = true; //Default values
         boolean p2Done = true;
@@ -37,27 +33,27 @@ public class Game {
         return p1Done || p2Done;
     }
 
-    public State performMove(int house){
-        int location = takeSeeds(house);
+    public State performMove(State gameState,int house){
+        int location = takeSeeds(gameState,house);
 
         //The while loop puts seeds into the proper houses and stores.
         while(seeds > 0){
             //We put seeds into p1's store if it is their turn.
             if (location == 7 && gameState.isP1Turn()){
-                addSeed(location);
+                addSeed(gameState,location);
             //We put seeds into p2's store if it is their turn.
             }else if (location == 0 && !gameState.isP1Turn()){
-                addSeed(location);
+                addSeed(gameState,location);
             //No matter whose turn it is, we put a seed any house we come across
             }else if (location != 0 && location != 7){
-                addSeed(location);
+                addSeed(gameState,location);
             }
             if(seeds != 0) {
                 location = (location + 1) % 14;
             }else{
                 //If we have placed all seeds into a non-empty (>1) house, we must continue our move.
                 if(gameState.getData()[location]>1 && location != 7 && location != 0){
-                    location = takeSeeds(location);
+                    location = takeSeeds(gameState,location);
 
                 }
             }
@@ -75,16 +71,13 @@ public class Game {
         return gameState;
     }
 
-    public State getState(){
-        return gameState;
-    }
-    private void addSeed(int location){
+    private void addSeed(State gameState,int location){
         //This method places a seed in a house or store
         gameState.getData()[location]++;
         seeds--;
 
     }
-    private int takeSeeds(int location){
+    private int takeSeeds(State gameState,int location){
         //This method takes all seeds from a house
         seeds = gameState.getData()[location];
         gameState.getData()[location] = 0;
