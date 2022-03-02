@@ -1,5 +1,3 @@
-import org.w3c.dom.Node;
-
 import java.util.ArrayList;
 
 public class Agent implements Player{
@@ -7,6 +5,9 @@ public class Agent implements Player{
     ArrayList<Integer> moveSequence;
     boolean hasNextMoveReady = false;
     int moveSeqIndex = 0;
+    int searchDepth = 5;
+    int minimalVaue = -10000;
+    int maximalValue = 10000;
 
     public Agent(boolean isP1){
         this.isP1 = isP1;
@@ -32,6 +33,8 @@ public class Agent implements Player{
     public void calculateMoveSeq(State origianlState){
         //Clone state so we don't mess up the original
         State simState = origianlState.clone();
+        Node rootNode = new Node(simState, true, null);
+
 
 
         ArrayList<Integer> moveSeq = new ArrayList<Integer>();
@@ -40,8 +43,30 @@ public class Agent implements Player{
         moveSequence = moveSeq;
     }
 
-    public int minMax(State state){
-        return 0;
+    public int minMax(Node node, int remaingDepth, boolean maximizing){
+        int val;
+        if (remaingDepth==0){
+            return evaluateState(node.state);
+        }
+        if (maximizing){
+            val = minimalVaue;
+            for (Node extChild: node.extChildren) {
+                int childVal = minMax(extChild, remaingDepth-1, false);
+                if (childVal > val){
+                    val = childVal;
+                }
+            }
+        } else {
+            val = maximalValue;
+            for (Node extChild: node.extChildren) {
+                int childVal = minMax(extChild, remaingDepth-1, true);
+                if (childVal < val){
+                    val = childVal;
+                }
+            }
+        }
+
+        return val;
     }
 
     //Evaluates how good a state is for this agent
