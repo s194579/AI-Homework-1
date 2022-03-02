@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Game {
 
     private int seeds;
@@ -80,5 +82,24 @@ public class Game {
         seeds = gameState.getData()[location];
         gameState.getData()[location] = 0;
         return (location + 1) % 14;
+    }
+
+    //MinMax methods
+    //Actions: Gives legal actions in a current state
+    public ArrayList<Integer> Actions(State state){
+        int[] data = state.getData();
+        ArrayList<Integer> legalMoves = new ArrayList<Integer>();
+        //Handle if we are P1 or P2
+        int location = 0;
+        if(!state.isP1Turn()){
+            location+=7;
+        }
+        //Find houses where there are seeds
+        for(int i = 0; i < 7; i++){
+            if(data[i+location] != 0){
+                legalMoves.add(i+location);
+            }
+        }
+        return legalMoves;
     }
 }
