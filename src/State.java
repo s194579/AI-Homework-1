@@ -20,4 +20,13 @@ public class State {
     public void setP1Turn(boolean b) {
         p1Turn = b;
     }
+
+    public State clone(){
+        int[] cloneData = new int[data.length];
+        for (int i = 0; i < data.length; i++) {
+            cloneData[i] = data[i];
+        }
+        State cloneState = new State(cloneData, p1Turn);
+        return cloneState;
+    }
 }
