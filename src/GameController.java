@@ -6,8 +6,6 @@ public class GameController {
 
     public void start(){
         game = new Game();
-        p1.setIsP1(true);
-        p2.setIsP1(false);
         gameState = game.initialSetUp();
         while (!game.goalTest(gameState)){
             UIController.printState(gameState);
