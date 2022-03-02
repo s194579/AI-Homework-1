@@ -1,13 +1,12 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class UIController {
-    private Scanner scanner = new Scanner(System.in);
-    private ArrayList<String> allowedColumns = new ArrayList<>(Arrays.asList("A","B","C","D","E","F"));
+    private static Scanner scanner = new Scanner(System.in);
+    private static ArrayList<String> allowedColumns = new ArrayList<>(Arrays.asList("A","B","C","D","E","F"));
 
-    public void printState(State state){
+    public static void printState(State state){
         int[] d = state.getData();
         System.out.printf(" \t%d\t%d\t%d\t%d\t%d\t%d%n",d[13],d[12],d[11],d[10],d[9],d[8]);
         System.out.printf("%d\t \t \t \t \t \t \t%d%n",d[0],d[7]);
@@ -17,7 +16,7 @@ public class UIController {
     }
 
 
-    public int getUserMove(State state){
+    public static int getUserMove(State state){
         boolean isP1sTurn = state.isP1Turn();
         String column;
         while (true){
