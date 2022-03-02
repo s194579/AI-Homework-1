@@ -10,6 +10,10 @@ public class Agent implements Player{
     int maximalValue = 10000;
     Node lastChildVisisted;
 
+    public Agent(boolean isP1){
+        this.isP1 = isP1;
+    }
+
     public int getMove(State state) {
         if (!hasNextMoveReady){
             calculateMoveSeq(state);
@@ -80,10 +84,6 @@ public class Agent implements Player{
         int opponentBank = state.getData()[(bankPosition+7)%14];
 
         return myBank - opponentBank;
-    }
-
-    public void setIsP1(boolean isP1){
-        this.isP1 = isP1;
     }
 
 }
