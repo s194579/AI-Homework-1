@@ -1,3 +1,5 @@
+import org.w3c.dom.Node;
+
 import java.util.ArrayList;
 
 public class Agent implements Player{
@@ -8,7 +10,7 @@ public class Agent implements Player{
 
     public int getMove(State state) {
         if (!hasNextMoveReady){
-            calculateMoveSeq();
+            calculateMoveSeq(state);
             if (moveSequence.size()==0){
                 System.out.println("ERROR - Agent was asked for next move, but none were possible");
             }
@@ -23,7 +25,11 @@ public class Agent implements Player{
         return result;
     }
 
-    public void calculateMoveSeq(){
+    public void calculateMoveSeq(State origianlState){
+        //Clone state so we don't mess up the original
+        State simState = origianlState.clone();
+
+
         ArrayList<Integer> moveSeq = new ArrayList<Integer>();
         //Make each index be the move it chooses at a given node.
         //This way we may move all the way through our composite node.

@@ -19,7 +19,8 @@ public class Game {
 
     public boolean goalTest(State gameState){
         int[] stateData = gameState.getData();
-        boolean p1Done = true; //Default values
+        //Default values
+        boolean p1Done = true;
         boolean p2Done = true;
         //The loop checks if either players houses are empty, if they are, we are done with the game.
         for(int i = 1; i < 7; i++){
@@ -54,6 +55,7 @@ public class Game {
                 //If we have placed all seeds into a non-empty (>1) house, we must continue our move.
                 if(gameState.getData()[location]>1 && location != 7 && location != 0){
                     location = takeSeeds(gameState,location);
+
                 }
             }
         }
