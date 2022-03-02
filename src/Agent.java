@@ -42,7 +42,7 @@ public class Agent implements Player{
     public int minMax(Node node, int remaingDepth, boolean maximizing){
         int val;
         if (remaingDepth==0){
-            return dummyHeuristic(node.state);
+            return evaluateState(node.state);
         }
         if (maximizing){
             val = minimalVaue;
@@ -63,10 +63,6 @@ public class Agent implements Player{
         }
 
         return val;
-    }
-
-    private int dummyHeuristic(State state){
-        return 0;
     }
 
     //Evaluates how good a state is for this agent
