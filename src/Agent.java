@@ -8,6 +8,7 @@ public class Agent implements Player{
     int searchDepth = 5;
     int minimalVaue = -10000;
     int maximalValue = 10000;
+    Node lastChildVisisted;
 
     public int getMove(State state) {
         if (!hasNextMoveReady){
@@ -41,6 +42,7 @@ public class Agent implements Player{
 
     public int minMax(Node node, int remaingDepth, boolean maximizing){
         int val;
+        Node bestNode = null;
         if (remaingDepth==0){
             return evaluateState(node.state);
         }
@@ -50,6 +52,7 @@ public class Agent implements Player{
                 int childVal = minMax(extChild, remaingDepth-1, false);
                 if (childVal > val){
                     val = childVal;
+                    bestNode = extChild;
                 }
             }
         } else {
@@ -58,10 +61,11 @@ public class Agent implements Player{
                 int childVal = minMax(extChild, remaingDepth-1, true);
                 if (childVal < val){
                     val = childVal;
+                    bestNode = extChild;
                 }
             }
         }
-
+        lastChildVisisted = bestNode;
         return val;
     }
 
