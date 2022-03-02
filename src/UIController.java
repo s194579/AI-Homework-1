@@ -42,4 +42,9 @@ public class UIController {
             return index;
         }
     }
+
+    public static void printAIPlayerMove(String playerName, int movePerformed){
+        String column = movePerformed < 7 ? allowedColumns.get(movePerformed-1) : allowedColumns.get(13-movePerformed);
+        System.out.println("AI player: " + playerName + " performed move: " + column);
+    }
 }

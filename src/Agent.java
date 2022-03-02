@@ -25,12 +25,13 @@ public class Agent implements Player{
             hasNextMoveReady = true;
             moveSeqIndex = 0;
         }
-        int result = moveSequence.get(moveSeqIndex);
+        int move = moveSequence.get(moveSeqIndex);
         moveSeqIndex++;
         if (moveSeqIndex == moveSequence.size()){
             hasNextMoveReady = false;
         }
-        return result;
+        UIController.printAIPlayerMove(state.isP1Turn() ? "P1" : "P2",move);
+        return move;
     }
 
     public void calculateMoveSeq(State origianlState){
