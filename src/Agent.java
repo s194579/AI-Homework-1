@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Agent implements Player{
     private boolean isP1;
@@ -9,6 +10,7 @@ public class Agent implements Player{
     int minimalVaue = -10000;
     int maximalValue = 10000;
     Node lastChildVisisted;
+    Game game = new Game();
 
     public Agent(boolean isP1){
         this.isP1 = isP1;
@@ -45,8 +47,14 @@ public class Agent implements Player{
     }
 
     public int minMax(Node node, int remaingDepth, boolean maximizing){
+        //Generate internal children
+        //Generate external children FROM internal children
+
+
+
+        //Perform minmax on external children
         int val;
-        Node bestNode = null;
+        Node bestInitalMoveNode = null;
         if (remaingDepth==0){
             return evaluateState(node.state);
         }
@@ -56,7 +64,7 @@ public class Agent implements Player{
                 int childVal = minMax(extChild, remaingDepth-1, false);
                 if (childVal > val){
                     val = childVal;
-                    bestNode = extChild;
+                    bestInitalMoveNode = extChild;
                 }
             }
         } else {
@@ -65,13 +73,24 @@ public class Agent implements Player{
                 int childVal = minMax(extChild, remaingDepth-1, true);
                 if (childVal < val){
                     val = childVal;
-                    bestNode = extChild;
+                    bestInitalMoveNode = extChild;
                 }
             }
         }
-        lastChildVisisted = bestNode;
+        if (remaingDepth == searchDepth){
+            lastChildVisisted = bestInitalMoveNode; //Lets us find the best move-sequence from the roots child-node
+        }
         return val;
     }
+
+    void generateIntAndExtChildren(Node root, List<Node> intChildren, List<Node> extChildren){
+    }
+
+    //Given a node, returns its children
+    List<Node> expandNode(Node node){
+        return null;
+    }
+
 
     //Evaluates how good a state is for this agent
     public int evaluateState(State state){
