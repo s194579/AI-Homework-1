@@ -89,7 +89,7 @@ public class Agent implements Player{
         return val;
     }
 
-    void generateIntAndExtChildren(Node root, List<Node> intChildren, List<Node> extChildren){
+    void generateIntAndExtChildren(Node root, List<Node> rootIntChildren, List<Node> rootExtChildren){
     }
 
     //Given a node, returns its children
