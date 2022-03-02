@@ -4,5 +4,8 @@ public class UIPlayer implements Player{
         return UIController.getUserMove(state);
     }
 
-
+    @Override
+    public void setIsP1(boolean isP1) {
+        //This is pointless for UIPlayers, but important for agents.
+    }
 }

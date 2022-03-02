@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Agent implements Player{
+    private boolean isP1;
     ArrayList<Integer> moveSequence;
     boolean hasNextMoveReady = false;
     int moveSeqIndex = 0;
@@ -19,7 +20,6 @@ public class Agent implements Player{
         if (moveSeqIndex == moveSequence.size()){
             hasNextMoveReady = false;
         }
-
         return result;
     }
 
@@ -32,6 +32,23 @@ public class Agent implements Player{
 
     public int minMax(State state){
         return 0;
+    }
+
+    //Evaluates how good a state is for this agent
+    public int evaluateState(State state){
+        //Currently the evaluation is only based on how many seeds are in the banks
+        int bankPosition = 0;
+        if(isP1){
+            bankPosition = 7;
+        }
+        int myBank = state.getData()[bankPosition];
+        int opponentBank = state.getData()[(bankPosition+7)%14];
+
+        return myBank - opponentBank;
+    }
+
+    public void setIsP1(boolean isP1){
+        this.isP1 = isP1;
     }
 
 }
