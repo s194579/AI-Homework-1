@@ -47,4 +47,9 @@ public class UIController {
         String column = movePerformed < 7 ? allowedColumns.get(movePerformed-1) : allowedColumns.get(13-movePerformed);
         System.out.println("AI player: " + playerName + " performed move: " + column);
     }
+
+    public static void printWinner(int p1Score, int p2Score){
+        String winnerName = p1Score == p2Score ? "Tie" : (p1Score>p2Score ? "P1" : "P2");
+        System.out.printf("Final score: P1: %d, P2: %d\n%s won!",p1Score,p2Score,winnerName);
+    }
 }

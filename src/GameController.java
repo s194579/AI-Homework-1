@@ -18,5 +18,7 @@ public class GameController {
             }
             game.performMove(gameState,nextMove);
         }
+
+        UIController.printWinner(gameState.getData()[7], gameState.getData()[0]);
     }
 }
