@@ -56,6 +56,11 @@ public class Agent implements Player{
         //Perform minmax on external children
         int val;
         Node bestInitalMoveNode = null;
+        boolean gameOver = game.goalTest(node.state);
+        if (gameOver){
+            return evaluateFinishedGame(node.state);
+        }
+
         if (remaingDepth==0){
             return evaluateState(node.state);
         }
@@ -104,6 +109,20 @@ public class Agent implements Player{
         int opponentBank = state.getData()[(bankPosition+7)%14];
 
         return myBank - opponentBank;
+    }
+
+    public int evaluateFinishedGame(State state){
+        int pointdiff = state.getData()[7] - state.getData()[0];
+        if (!state.isP1Turn()){
+            pointdiff *= -1;
+        }
+        if (pointdiff == 0 ){
+            return 0;
+        } else if (pointdiff > 0){
+            return maximalValue;
+        } else {
+            return minimalVaue;
+        }
     }
 
 }
