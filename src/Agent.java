@@ -93,27 +93,36 @@ public class Agent implements Player{
     public void generateIntAndExtChildren(Node root, List<Node> rootIntChildren, List<Node> rootExtChildren){
         //A node is a intChild if it has the same player turn as its parent
         //A node is a extChild if it has a different player turn than its parent
-        //TODO:
-        //Get all moves
-        //Execute all moves and see node type
         List<Node> children = expandNode(root);
 
-
+        //Sort child nodes
+        for(int i = 0; i < children.size(); i++){
+            if(children.get(i).turnRoot){
+                rootExtChildren.add(children.get(i));
+            } else {
+                rootIntChildren.add(children.get(i));
+                //If a child was an intNode, expand it.
+                List<Node> descendants = expandNode(children.get(i));
+                children.addAll(descendants);
+            }
+        }
+        //We now have all ext and int children of the root,
+        //and can pick any ext child to do the same on, continuing the minmax chain
     }
 
-    //Given a node, returns its children
+    //Given a node, returns its children.
     public List<Node> expandNode(Node node){
-        List<Node> resultingNodes = null;
-
+        List<Node> children = null;
         State initState = node.state;
         ArrayList<Integer> moves = game.Actions(initState);
+
         for(int i = 0; i < moves.size(); i++){
             State newState = game.performMove(initState,moves.get(i));
+            //If player turn has changed, the node is an extChild
             Node child = new Node(newState, !(newState.isP1Turn() == initState.isP1Turn()), node);
-            resultingNodes.add(child);
+            children.add(child);
         }
-
-        return resultingNodes;
+        return children;
     }
 
 
