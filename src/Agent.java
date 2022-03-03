@@ -1,3 +1,4 @@
+import javax.naming.InitialContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,12 +90,30 @@ public class Agent implements Player{
         return val;
     }
 
-    void generateIntAndExtChildren(Node root, List<Node> rootIntChildren, List<Node> rootExtChildren){
+    public void generateIntAndExtChildren(Node root, List<Node> rootIntChildren, List<Node> rootExtChildren){
+        //A node is a intChild if it has the same player turn as its parent
+        //A node is a extChild if it has a different player turn than its parent
+        //TODO:
+        //Get all moves
+        //Execute all moves and see node type
+        List<Node> children = expandNode(root);
+
+
     }
 
     //Given a node, returns its children
-    List<Node> expandNode(Node node){
-        return null;
+    public List<Node> expandNode(Node node){
+        List<Node> resultingNodes = null;
+
+        State initState = node.state;
+        ArrayList<Integer> moves = game.Actions(initState);
+        for(int i = 0; i < moves.size(); i++){
+            State newState = game.performMove(initState,moves.get(i));
+            Node child = new Node(newState, !(newState.isP1Turn() == initState.isP1Turn()), node);
+            resultingNodes.add(child);
+        }
+
+        return resultingNodes;
     }
 
 
