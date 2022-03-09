@@ -1,4 +1,3 @@
-import javax.naming.InitialContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,9 +7,9 @@ public class Agent implements Player{
     boolean hasNextMoveReady = false;
     int moveSeqIndex = 0;
     int searchDepth = 5;
-    int minimalVaue = -10000;
+    int minimalValue = -10000;
     int maximalValue = 10000;
-    Node lastChildVisisted;
+    Node lastExtChildVisisted;
     Game game = new Game();
 
     public Agent(boolean isP1){
@@ -39,7 +38,7 @@ public class Agent implements Player{
         //Clone state so we don't mess up the original
         State simState = origianlState.clone();
         Node rootNode = new Node(simState, true, null);
-
+        miniMax(rootNode,searchDepth,true);
 
 
         ArrayList<Integer> moveSeq = new ArrayList<Integer>();
@@ -49,13 +48,10 @@ public class Agent implements Player{
     }
 
     public int miniMax(Node node, int remaingDepth, boolean maximizing){
-        //Generate internal children
-        //Generate external children FROM internal children
-
-
+        generateIntAndExtChildren(node,node.intChildren,node.extChildren);
 
         //Perform minmax on external children
-        int val;
+        int miniMaxScore;
         Node bestInitalMoveNode = null;
         boolean gameOver = game.goalTest(node.state);
         if (gameOver){
@@ -66,28 +62,29 @@ public class Agent implements Player{
             return evaluateState(node.state);
         }
         if (maximizing){
-            val = minimalVaue;
+            miniMaxScore = minimalValue;
             for (Node extChild: node.extChildren) {
                 int childVal = miniMax(extChild, remaingDepth-1, false);
-                if (childVal > val){
-                    val = childVal;
+                if (childVal > miniMaxScore){
+                    miniMaxScore = childVal;
                     bestInitalMoveNode = extChild;
                 }
             }
         } else {
-            val = maximalValue;
+            miniMaxScore = maximalValue;
             for (Node extChild: node.extChildren) {
                 int childVal = miniMax(extChild, remaingDepth-1, true);
-                if (childVal < val){
-                    val = childVal;
+                if (childVal < miniMaxScore){
+                    miniMaxScore = childVal;
                     bestInitalMoveNode = extChild;
                 }
             }
         }
+        //If we are in the root node, choose the best initial move.
         if (remaingDepth == searchDepth){
-            lastChildVisisted = bestInitalMoveNode; //Lets us find the best move-sequence from the roots child-node
+            lastExtChildVisisted = bestInitalMoveNode; //Lets us find the best move-sequence from the roots child-node
         }
-        return val;
+        return miniMaxScore;
     }
 
     public void generateIntAndExtChildren(Node root, List<Node> rootIntChildren, List<Node> rootExtChildren){
@@ -150,7 +147,7 @@ public class Agent implements Player{
         } else if (pointdiff > 0){
             return maximalValue;
         } else {
-            return minimalVaue;
+            return minimalValue;
         }
     }
 
