@@ -6,13 +6,15 @@ public class UIController {
     private static Scanner scanner = new Scanner(System.in);
     private static ArrayList<String> allowedColumns = new ArrayList<>(Arrays.asList("A","B","C","D","E","F"));
 
-    public static void printState(State state){
+    public static void printState(State state, int turn){
         int[] d = state.getData();
+        System.out.println("-----------------------------");
+        System.out.println("Turn nr. " + turn);
         System.out.printf(" \t%d\t%d\t%d\t%d\t%d\t%d%n",d[13],d[12],d[11],d[10],d[9],d[8]);
         System.out.printf("%d\t \t \t \t \t \t \t%d%n",d[0],d[7]);
         System.out.printf(" \t%d\t%d\t%d\t%d\t%d\t%d%n",d[1],d[2],d[3],d[4],d[5],d[6]);
         System.out.println(" \tA\tB\tC\tD\tE\tF");
-        System.out.println("-----------------------------");
+
     }
 
 

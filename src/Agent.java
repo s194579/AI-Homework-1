@@ -7,11 +7,12 @@ public class Agent implements Player{
     ArrayList<Integer> moveSequence;
     boolean hasNextMoveReady = false;
     int moveSeqIndex = 0;
-    int searchDepth = 1;
+    int searchDepth = 7;
     int minimalValue = -10000;
     int maximalValue = 10000;
-    Node lastExtChildVisisted;
+    Node goalNodeThisTurn;
     Game game = new Game();
+    public int extNodesEvaluated = 0;
 
     public Agent(boolean isP1){
         this.isP1 = isP1;
@@ -32,10 +33,13 @@ public class Agent implements Player{
             hasNextMoveReady = false;
         }
         UIController.printAIPlayerMove(state.isP1Turn() ? "P1" : "P2",move);
+        goalNodeThisTurn = null;
         return move;
     }
 
     public void calculateMoveSeq(State origianlState){
+        extNodesEvaluated = 0;
+
         //Clone state so we don't mess up the original
         State simState = origianlState.clone();
         Node rootNode = new Node(simState, true, null);
@@ -43,9 +47,11 @@ public class Agent implements Player{
         //This sets LastExtChildVisited to the contain the state, we want to get to
         miniMax(rootNode,searchDepth,true);
 
+        System.out.println("Evaluated " + extNodesEvaluated + " nodes to find move seq");
+
         //Recreate move sequence
         ArrayList<Integer> moveSeq = new ArrayList<Integer>();
-        Node currNode = lastExtChildVisisted;
+        Node currNode = goalNodeThisTurn;
         while (currNode.parent != null){
             moveSeq.add(currNode.lastMovePerformed);
             currNode = currNode.parent;
@@ -59,6 +65,7 @@ public class Agent implements Player{
     }
 
     public int miniMax(Node node, int remaingDepth, boolean maximizing){
+        extNodesEvaluated++;
         //Base case checks
         boolean gameOver = game.goalTest(node.state);
         if (gameOver){
@@ -70,7 +77,7 @@ public class Agent implements Player{
         }
 
         //Generate children
-        generateIntAndExtChildren(node,node.intChildren,node.extChildren);
+        generateIntAndExtChildren(node,node.intChildren,node.extChildren, node.intLeaves);
 
         //Perform minmax on external children
         int miniMaxScore;
@@ -78,6 +85,14 @@ public class Agent implements Player{
 
         if (maximizing){
             miniMaxScore = minimalValue;
+            for (Node leaf: node.intLeaves){
+                int endVal = evaluateFinishedGame(leaf.state);
+                if (endVal > miniMaxScore){
+                    miniMaxScore = endVal;
+                    bestInitalMoveNode = leaf;
+                }
+            }
+
             for (Node extChild: node.extChildren) {
                 int childVal = miniMax(extChild, remaingDepth-1, false);
                 if (childVal > miniMaxScore){
@@ -87,6 +102,14 @@ public class Agent implements Player{
             }
         } else {
             miniMaxScore = maximalValue;
+            for (Node leaf: node.intLeaves){
+                int endVal = evaluateFinishedGame(leaf.state);
+                if (endVal < miniMaxScore){
+                    miniMaxScore = endVal;
+                    bestInitalMoveNode = leaf;
+                }
+            }
+
             for (Node extChild: node.extChildren) {
                 int childVal = miniMax(extChild, remaingDepth-1, true);
                 if (childVal < miniMaxScore){
@@ -97,12 +120,12 @@ public class Agent implements Player{
         }
         //If we are in the root node, choose the best initial move.
         if (remaingDepth == searchDepth){
-            lastExtChildVisisted = bestInitalMoveNode; //Lets us find the best move-sequence from the roots child-node
+            goalNodeThisTurn = bestInitalMoveNode; //Lets us find the best move-sequence from the roots child-node
         }
         return miniMaxScore;
     }
 
-    public void generateIntAndExtChildren(Node root, List<Node> rootIntChildren, List<Node> rootExtChildren){
+    public void  generateIntAndExtChildren(Node root, List<Node> rootIntChildren, List<Node> rootExtChildren, List<Node> internalLeaves){
         //A node is a intChild if it has the same player turn as its parent
         //A node is a extChild if it has a different player turn than its parent
         List<Node> children = expandNode(root);
@@ -115,7 +138,11 @@ public class Agent implements Player{
                 rootIntChildren.add(children.get(i));
                 //If a child was an intNode, expand it.
                 List<Node> descendants = expandNode(children.get(i));
-                children.addAll(descendants);
+                if (!descendants.isEmpty()){
+                    children.addAll(descendants);
+                } else {
+                    internalLeaves.add(children.get(i));
+                }
             }
         }
         //We now have all ext and int children of the root,
@@ -160,9 +187,9 @@ public class Agent implements Player{
         if (pointdiff == 0 ){
             return 0;
         } else if (pointdiff > 0){
-            return maximalValue;
+            return maximalValue-1;
         } else {
-            return minimalValue;
+            return minimalValue+1;
         }
     }
 
