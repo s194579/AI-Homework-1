@@ -8,8 +8,11 @@ public class Agent implements Player{
     boolean hasNextMoveReady = false;
     int moveSeqIndex = 0;
     int searchDepth = 5;
+    long searchTimeMillis = 50;
     int minimalValue = -10000;
     int maximalValue = 10000;
+    int winningValue = maximalValue-1;
+    int losingValue = minimalValue+1;
     Node goalNodeThisTurn;
     Game game = new Game();
     public int extNodesEvaluated = 0;
@@ -37,17 +40,32 @@ public class Agent implements Player{
         return move;
     }
 
-    public void calculateMoveSeq(State origianlState){
-        extNodesEvaluated = 0;
+    void iterativeDeepeningMinMax(Node rootNode){
+        long t0 = System.currentTimeMillis();
+        searchDepth = 1;
+        while (true){
+            long t = System.currentTimeMillis() - t0;
+            if (t> searchTimeMillis){
+                break;
+            }
+            extNodesEvaluated = 0;
+            int val = miniMax(rootNode, searchDepth , minimalValue, maximalValue,true);
+            if (val == winningValue){
+                break;//If we have found a solution where we won - don't search any further
+            }
+            searchDepth++;
+        }
+    }
 
+    public void calculateMoveSeq(State origianlState){
         //Clone state so we don't mess up the original
         State simState = origianlState.clone();
         Node rootNode = new Node(simState, true, null);
 
         //This sets LastExtChildVisited to the contain the state, we want to get to
-        miniMax(rootNode,searchDepth, minimalValue, maximalValue,true);
+        iterativeDeepeningMinMax(rootNode);
 
-        System.out.println("Evaluated " + extNodesEvaluated + " nodes to find move seq");
+        System.out.println("Evaluated " + extNodesEvaluated + " nodes in a deoth of " + searchDepth + " to find move seq");
 
         //Recreate move sequence
         ArrayList<Integer> moveSeq = new ArrayList<Integer>();
@@ -208,9 +226,9 @@ public class Agent implements Player{
         if (pointdiff == 0 ){
             return 0;
         } else if (pointdiff > 0){
-            return maximalValue-1;
+            return winningValue;
         } else {
-            return minimalValue+1;
+            return losingValue;
         }
     }
 
