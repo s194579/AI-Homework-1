@@ -48,7 +48,7 @@ public class Agent implements Player{
         moveSequence = moveSeq;
     }
 
-    public int minMax(Node node, int remaingDepth, boolean maximizing){
+    public int miniMax(Node node, int remaingDepth, boolean maximizing){
         //Generate internal children
         //Generate external children FROM internal children
 
@@ -68,7 +68,7 @@ public class Agent implements Player{
         if (maximizing){
             val = minimalVaue;
             for (Node extChild: node.extChildren) {
-                int childVal = minMax(extChild, remaingDepth-1, false);
+                int childVal = miniMax(extChild, remaingDepth-1, false);
                 if (childVal > val){
                     val = childVal;
                     bestInitalMoveNode = extChild;
@@ -77,7 +77,7 @@ public class Agent implements Player{
         } else {
             val = maximalValue;
             for (Node extChild: node.extChildren) {
-                int childVal = minMax(extChild, remaingDepth-1, true);
+                int childVal = miniMax(extChild, remaingDepth-1, true);
                 if (childVal < val){
                     val = childVal;
                     bestInitalMoveNode = extChild;
@@ -117,7 +117,8 @@ public class Agent implements Player{
         ArrayList<Integer> moves = game.Actions(initState);
 
         for(int i = 0; i < moves.size(); i++){
-            State newState = game.performMove(initState,moves.get(i));
+            State cloneState = initState.clone();
+            State newState = game.performMove(cloneState,moves.get(i));
             //If player turn has changed, the node is an extChild
             Node child = new Node(newState, !(newState.isP1Turn() == initState.isP1Turn()), node);
             children.add(child);
