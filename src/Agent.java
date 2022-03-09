@@ -7,7 +7,7 @@ public class Agent implements Player{
     ArrayList<Integer> moveSequence;
     boolean hasNextMoveReady = false;
     int moveSeqIndex = 0;
-    int searchDepth = 7;
+    int searchDepth = 5;
     int minimalValue = -10000;
     int maximalValue = 10000;
     Node goalNodeThisTurn;
@@ -45,7 +45,7 @@ public class Agent implements Player{
         Node rootNode = new Node(simState, true, null);
 
         //This sets LastExtChildVisited to the contain the state, we want to get to
-        miniMax(rootNode,searchDepth,true);
+        miniMax(rootNode,searchDepth, minimalValue, maximalValue,true);
 
         System.out.println("Evaluated " + extNodesEvaluated + " nodes to find move seq");
 
@@ -64,7 +64,7 @@ public class Agent implements Player{
         moveSequence = moveSeq;
     }
 
-    public int miniMax(Node node, int remaingDepth, boolean maximizing){
+    public int miniMax(Node node, int remaingDepth, int alpha, int beta, boolean maximizing){
         extNodesEvaluated++;
         //Base case checks
         boolean gameOver = game.goalTest(node.state);
@@ -81,6 +81,7 @@ public class Agent implements Player{
 
         //Perform minmax on external children
         int miniMaxScore;
+        boolean pruned = false;
         Node bestInitalMoveNode = null;
 
         if (maximizing){
@@ -91,13 +92,23 @@ public class Agent implements Player{
                     miniMaxScore = endVal;
                     bestInitalMoveNode = leaf;
                 }
+                if(endVal >= beta){
+                    pruned = true;
+                    break; //Beta cutoff
+                }
+                alpha = Math.max(alpha,endVal);
             }
-
-            for (Node extChild: node.extChildren) {
-                int childVal = miniMax(extChild, remaingDepth-1, false);
-                if (childVal > miniMaxScore){
-                    miniMaxScore = childVal;
-                    bestInitalMoveNode = extChild;
+            if(!pruned) {
+                for (Node extChild : node.extChildren) {
+                    int childVal = miniMax(extChild, remaingDepth - 1, alpha, beta, false);
+                    if (childVal > miniMaxScore) {
+                        miniMaxScore = childVal;
+                        bestInitalMoveNode = extChild;
+                    }
+                    if(childVal >= beta){
+                        break; //Beta cutoff
+                    }
+                    alpha = Math.max(alpha,childVal);
                 }
             }
         } else {
@@ -108,13 +119,23 @@ public class Agent implements Player{
                     miniMaxScore = endVal;
                     bestInitalMoveNode = leaf;
                 }
+                if(endVal <= alpha){
+                    pruned = true;
+                    break; //Beta cutoff
+                }
+                beta = Math.min(beta,endVal);
             }
-
-            for (Node extChild: node.extChildren) {
-                int childVal = miniMax(extChild, remaingDepth-1, true);
-                if (childVal < miniMaxScore){
-                    miniMaxScore = childVal;
-                    bestInitalMoveNode = extChild;
+            if(!pruned) {
+                for (Node extChild : node.extChildren) {
+                    int childVal = miniMax(extChild, remaingDepth - 1, alpha, beta, true);
+                    if (childVal < miniMaxScore) {
+                        miniMaxScore = childVal;
+                        bestInitalMoveNode = extChild;
+                    }
+                    if(childVal <= alpha){
+                        break; //Beta cutoff
+                    }
+                    beta = Math.min(beta,childVal);
                 }
             }
         }
