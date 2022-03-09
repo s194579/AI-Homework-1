@@ -51,12 +51,6 @@ public class Game {
             }
             if(seeds != 0) {
                 location = (location + 1) % 14;
-            }else{
-                //If we have placed all seeds into a non-empty (>1) house, we must continue our move.
-                if(gameState.getData()[location]>1 && location != 7 && location != 0){
-                    location = takeSeeds(gameState,location);
-
-                }
             }
         }
         //If our last seed was placed in a house, we get to move again.
@@ -97,7 +91,7 @@ public class Game {
             location+=7;
         }
         //Find houses where there are seeds
-        for(int i = 0; i < 7; i++){
+        for(int i = 1; i < 7; i++){
             if(data[i+location] != 0){
                 legalMoves.add(i+location);
             }

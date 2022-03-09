@@ -2,12 +2,14 @@ public class GameController {
     private Game game;
     private State gameState;
     public Player p1, p2;
+    int turn = 0;
 
 
     public void start(){
         game = new Game();
         gameState = game.initialSetUp();
         while (!game.goalTest(gameState)){
+            turn++;
             UIController.printState(gameState);
             boolean p1Turn = gameState.isP1Turn();
             int nextMove;

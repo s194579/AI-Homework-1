@@ -10,7 +10,7 @@ public class Application {
 
         GameController gc = new GameController();
         gc.p1 = new Agent(true);
-        gc.p2 = new UIPlayer();
+        gc.p2 = new Agent(false);
         gc.start();
     }
 }
