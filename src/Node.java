@@ -7,6 +7,7 @@ public class Node {
     public Node parent;
     public List<Node> extChildren;
     public List<Node> intChildren;
+    public int lastMovePerformed;
 
     public Node(State state, boolean turnRoot, Node parent){
         this.state = state;
@@ -14,6 +15,15 @@ public class Node {
         this.parent = parent;
         extChildren = new ArrayList<Node>();
         intChildren = new ArrayList<Node>();
+    }
+
+    public Node(State state, boolean turnRoot, Node parent, int lastMovePerformed){
+        this.state = state;
+        this.turnRoot = turnRoot;
+        this.parent = parent;
+        extChildren = new ArrayList<Node>();
+        intChildren = new ArrayList<Node>();
+        this.lastMovePerformed = lastMovePerformed;
     }
 }
 

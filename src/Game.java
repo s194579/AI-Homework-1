@@ -60,6 +60,7 @@ public class Game {
             }
         }
         //If our last seed was placed in a house, we get to move again.
+
         if(gameState.isP1Turn()){
             if (location != 7){
                 gameState.setP1Turn(false);

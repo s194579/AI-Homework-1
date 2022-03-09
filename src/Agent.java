@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Agent implements Player{
@@ -6,7 +7,7 @@ public class Agent implements Player{
     ArrayList<Integer> moveSequence;
     boolean hasNextMoveReady = false;
     int moveSeqIndex = 0;
-    int searchDepth = 5;
+    int searchDepth = 1;
     int minimalValue = -10000;
     int maximalValue = 10000;
     Node lastExtChildVisisted;
@@ -38,21 +39,27 @@ public class Agent implements Player{
         //Clone state so we don't mess up the original
         State simState = origianlState.clone();
         Node rootNode = new Node(simState, true, null);
+
+        //This sets LastExtChildVisited to the contain the state, we want to get to
         miniMax(rootNode,searchDepth,true);
 
-
+        //Recreate move sequence
         ArrayList<Integer> moveSeq = new ArrayList<Integer>();
+        Node currNode = lastExtChildVisisted;
+        while (currNode.parent != null){
+            moveSeq.add(currNode.lastMovePerformed);
+            currNode = currNode.parent;
+        }
+        Collections.reverse(moveSeq);
+
+
         //Make each index be the move it chooses at a given node.
         //This way we may move all the way through our composite node.
         moveSequence = moveSeq;
     }
 
     public int miniMax(Node node, int remaingDepth, boolean maximizing){
-        generateIntAndExtChildren(node,node.intChildren,node.extChildren);
-
-        //Perform minmax on external children
-        int miniMaxScore;
-        Node bestInitalMoveNode = null;
+        //Base case checks
         boolean gameOver = game.goalTest(node.state);
         if (gameOver){
             return evaluateFinishedGame(node.state);
@@ -61,6 +68,14 @@ public class Agent implements Player{
         if (remaingDepth==0){
             return evaluateState(node.state);
         }
+
+        //Generate children
+        generateIntAndExtChildren(node,node.intChildren,node.extChildren);
+
+        //Perform minmax on external children
+        int miniMaxScore;
+        Node bestInitalMoveNode = null;
+
         if (maximizing){
             miniMaxScore = minimalValue;
             for (Node extChild: node.extChildren) {
@@ -109,7 +124,7 @@ public class Agent implements Player{
 
     //Given a node, returns its children.
     public List<Node> expandNode(Node node){
-        List<Node> children = null;
+        List<Node> children = new ArrayList<>();
         State initState = node.state;
         ArrayList<Integer> moves = game.Actions(initState);
 
@@ -117,7 +132,7 @@ public class Agent implements Player{
             State cloneState = initState.clone();
             State newState = game.performMove(cloneState,moves.get(i));
             //If player turn has changed, the node is an extChild
-            Node child = new Node(newState, !(newState.isP1Turn() == initState.isP1Turn()), node);
+            Node child = new Node(newState, !(newState.isP1Turn() == initState.isP1Turn()), node, moves.get(i));
             children.add(child);
         }
         return children;
