@@ -20,7 +20,7 @@ public class GameController {
             game.performMove(gameState,nextMove);
             turn++;
         }
-
-        UIController.printWinner(gameState.getData()[7], gameState.getData()[0]);
+        UIController.printState(gameState, turn);
+        UIController.printWinner(gameState.getP1PointsFinishedGame(), gameState.getP2PointsFinishedGame());
     }
 }

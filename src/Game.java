@@ -18,20 +18,10 @@ public class Game {
     }
 
     public boolean goalTest(State gameState){
-        int[] stateData = gameState.getData();
-        //Default values
-        boolean p1Done = true;
-        boolean p2Done = true;
-        //The loop checks if either players houses are empty, if they are, we are done with the game.
-        for(int i = 1; i < 7; i++){
-            if(stateData[i] != 0 ){
-                p1Done = false;
-            }
-            if(stateData[i+7] != 0){
-                p2Done = false;
-            }
-        }
-        return p1Done || p2Done;
+        //The game is over if the player who's turn it is has no seeds in any house
+        boolean p1Lost = gameState.isP1Turn() && gameState.p1HousesSum() == 0;
+        boolean p2Lost = !gameState.isP1Turn() && gameState.p2HousesSum() == 0;
+        return p1Lost || p2Lost;
     }
 
     public State performMove(State gameState,int house){

@@ -219,7 +219,9 @@ public class Agent implements Player{
     }
 
     public int evaluateFinishedGame(State state){
-        int pointdiff = state.getData()[7] - state.getData()[0];
+        int pointdiff = state.getPointDiffFinishedGame();
+
+        //Change sign, so positive value reflects good value for player who's turn it is
         if (!state.isP1Turn()){
             pointdiff *= -1;
         }
