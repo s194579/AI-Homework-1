@@ -43,8 +43,8 @@ public class Game {
                 location = (location + 1) % 14;
             }
         }
-        //If our last seed was placed in a house, we get to move again.
 
+        //If our last seed not placed in our own store, we lose the turn
         if(gameState.isP1Turn()){
             if (location != 7){
                 gameState.setP1Turn(false);

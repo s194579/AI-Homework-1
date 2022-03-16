@@ -198,7 +198,7 @@ public class Agent implements Player{
             State cloneState = initState.clone();
             State newState = game.performMove(cloneState,moves.get(i));
             //If player turn has changed, the node is an extChild
-            Node child = new Node(newState, !(newState.isP1Turn() == initState.isP1Turn()), node, moves.get(i));
+            Node child = new Node(newState, newState.isP1Turn() != initState.isP1Turn(), node, moves.get(i));
             children.add(child);
         }
         return children;
@@ -208,23 +208,12 @@ public class Agent implements Player{
     //Evaluates how good a state is for this agent
     public int evaluateState(State state){
         //Currently the evaluation is only based on how many seeds are in the banks
-        int bankPosition = 0;
-        if(isP1){
-            bankPosition = 7;
-        }
-        int myBank = state.getData()[bankPosition];
-        int opponentBank = state.getData()[(bankPosition+7)%14];
-
-        return myBank - opponentBank;
+        return state.getData()[7] - state.getData()[0];
     }
 
     public int evaluateFinishedGame(State state){
         int pointdiff = state.getPointDiffFinishedGame();
 
-        //Change sign, so positive value reflects good value for player who's turn it is
-        if (!state.isP1Turn()){
-            pointdiff *= -1;
-        }
         if (pointdiff == 0 ){
             return 0;
         } else if (pointdiff > 0){
