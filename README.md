@@ -1,6 +1,6 @@
 # AI-Homework-1
 **Game:**
-Kalaha
+Kalaha (2 players, human or AI)
 
 **Rules:**
 The goal of this two-player game is to collect more seeds in our store than our opponent. 
