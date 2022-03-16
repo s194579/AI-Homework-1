@@ -12,7 +12,7 @@ selected house in their own store may they take an extra turn.
 
 **Strategy:**
 Clever players can take advantage of the extra turns mechanic granted by finishing their turns in their stores and —depending on the configuration of the board— 
-can clear the board in a single turn. The longest possible such chain on a standard Kalaha board of six pits lasts for seventeen moves where the configuration is 
+can clear the board in a single turn. For example, the longest possible chain on a standard Kalaha board of six pits lasts for seventeen moves where the configuration is 
 [5,4,2,3,1,1]. It can be shown that, for all size boards, there exists one and only one pattern.
 
 **Installation:**
