@@ -11,6 +11,18 @@ public class Application {
         int searchTimeMillis = 0;
         boolean isPlayerAI = false;
         Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Perform tests before playing the game? Write \"test\" for testing or something else for playing.");
+        if (scanner.nextLine().toLowerCase().equals("test")){
+            System.out.println("Provide the search time in milliseconds (integer)");
+            int testSearchTimeMillis = scanner.nextInt();
+            System.out.println("Provide the number of seeds in each house initially");
+            int testSeedsPrHouse = scanner.nextInt();
+            System.out.println("Provide the number of games the agents should play (size of the test)");
+            int numOfGames = scanner.nextInt();
+            performAgentVsAgentTest(testSearchTimeMillis,testSeedsPrHouse, numOfGames);
+        }
+
         System.out.println("Player1:");
         System.out.println("Write H for human player or AI for AI player");
         String player1 = scanner.nextLine();
@@ -42,5 +54,18 @@ public class Application {
         }
 
         gc.start(initialSeedsPrHouse);
+    }
+
+    public static void performAgentVsAgentTest(int searchTimeMillis, int initialSeedsPrHouse, int numOfGames){
+        GameController gc = new GameController();
+        gc.p1 = new Agent(true,searchTimeMillis);
+        gc.p2 = new Agent(false,searchTimeMillis);
+        int testSize = numOfGames;
+        for (int i = 0; i < testSize; i++) {
+            gc.start(initialSeedsPrHouse);
+        }
+        System.out.println();
+        System.out.println("P1 won: " + gc.p1Wins + " and P2 won " + gc.p2Wins + " out of " + testSize +" games");
+
     }
 }
