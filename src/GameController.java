@@ -5,9 +5,9 @@ public class GameController {
     static int turn = 0;
 
 
-    public void start(){
+    public void start(int initalSeedsPrHouse){
         game = new Game();
-        gameState = game.initialSetUp();
+        gameState = game.initialSetUp(initalSeedsPrHouse);
         while (!game.goalTest(gameState)){
             UIController.printState(gameState, turn);
             boolean p1Turn = gameState.isP1Turn();

@@ -9,8 +9,8 @@ public class Application {
         //Create UI controller
 
         GameController gc = new GameController();
-        gc.p1 = new Agent(true);
-        gc.p2 = new Agent(false);
-        gc.start();
+        gc.p1 = new Agent(true,50);
+        gc.p2 = new Agent(false,50);
+        gc.start(12);
     }
 }

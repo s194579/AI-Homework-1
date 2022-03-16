@@ -17,8 +17,9 @@ public class Agent implements Player{
     Game game = new Game();
     public int extNodesEvaluated = 0;
 
-    public Agent(boolean isP1){
+    public Agent(boolean isP1, int searchTimeMillis){
         this.isP1 = isP1;
+        this.searchTimeMillis = searchTimeMillis;
     }
 
     public int getMove(State state) {

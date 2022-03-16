@@ -5,14 +5,16 @@ public class Game {
     private int seeds;
 
 
+
+
     //Setting up the initial state
-    public State initialSetUp() {
+    public State initialSetUp(int initalSeedsPrHouse) {
         int[] initialState = new int[14];
         initialState[0] = 0;
         initialState[7] = 0;
         for(int i = 1; i < 7; i++){
-            initialState[i] = 4;
-            initialState[i+7] = 4;
+            initialState[i] = initalSeedsPrHouse;
+            initialState[i+7] = initalSeedsPrHouse;
         }
         return new State(initialState,true);
     }
