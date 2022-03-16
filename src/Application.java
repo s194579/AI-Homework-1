@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Application {
     public static void main(String[] args) {
@@ -7,23 +8,39 @@ public class Application {
         //Create Agent
         //Create Game Controller
         //Create UI controller
+        int searchTimeMillis = 0;
+        boolean isPlayerAI = false;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Player1:");
+        System.out.println("Write H for human player or AI for AI player");
+        String player1 = scanner.nextLine();
 
-        GameController gc = new GameController();
-        gc.p1 = new Agent(true,50);
-        gc.p2 = new Agent(false,50);
-        gc.start(4);
-    }
+        System.out.println("Player2:");
+        System.out.println("Write H for human player or AI for AI player");
+        String player2 = scanner.nextLine();
 
-    public static void performAgentVsAgentTest(){
-        GameController gc = new GameController();
-        gc.p1 = new Agent(true,50);
-        gc.p2 = new Agent(false,50);
-        int testSize = 10;
-        for (int i = 0; i < testSize; i++) {
-            gc.start(4);
+        System.out.println("Give the number of starting seeds in each house:");
+        int initialSeedsPrHouse = scanner.nextInt();
+
+        if(player1.equals("AI") || player2.equals("AI")) {
+            System.out.println("Time the AI has on each search layer:");
+            System.out.println("Time is in milliseconds");
+            searchTimeMillis = scanner.nextInt();
         }
-        System.out.println();
-        System.out.println("P1 won: " + gc.p1Wins + " and P2 won " + gc.p2Wins + " out of " + testSize +" games");
 
+        GameController gc = new GameController();
+
+        if (player1.equals("AI")) {
+            gc.p1 = new Agent(true, searchTimeMillis);
+        }else {
+            gc.p1 = new UIPlayer();
+        }
+        if (player2.equals("AI")) {
+            gc.p2 = new Agent(false, searchTimeMillis);
+        }else {
+            gc.p2 = new UIPlayer();
+        }
+
+        gc.start(initialSeedsPrHouse);
     }
 }
