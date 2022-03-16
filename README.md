@@ -13,8 +13,8 @@
 - A desire to play!
 
 **Project Members:**
-- Peter 
 - Kasper Jørgensen
+- Peter Revsbech
 - Tobias van Deurs Lundsgaard
 - Connor Wall
 
