@@ -1,4 +1,23 @@
 # AI-Homework-1
+
+**Installation:**
+1. Compile the project source code (we used Java verison 13).
+2. Run Main in Application.java 
+3. Follow printed out game instructions to decide on which players are human, which are AI, 
+   and how many seeds are in each starting house (4+). Four seeds in each house is the traditional method.
+4. If AI players are selected, write a single search time for the AI in milliseconds (0+). 
+   A higher value increases the performance of the AI. A value of 50 is a good default.
+   
+**System Requirements**
+- Java 13
+- A desire to play!
+
+**Project Members:**
+— Peter 
+- Kasper Jørgensen
+- Tobias van Deurs Lundsgaard
+- Connor Wall
+
 **Game:**
 Kalaha (2 players, human or AI)
 
@@ -14,21 +33,3 @@ selected house in their own store may they take an extra turn.
 Clever players can take advantage of the extra turns mechanic granted by finishing their turns in their stores and —depending on the configuration of the board— 
 can clear the board in a single turn. For example, the longest possible chain on a standard Kalaha board of six pits lasts for seventeen moves where the configuration is 
 [5,4,2,3,1,1]. It can be shown that, for all size boards, there exists one and only one pattern.
-
-**Installation:**
-1. Compile the project source code (we used Java verison 13).
-2. Run Main in Application.java 
-3. Follow printed out game instructions to decide on which players are human, which are AI, 
-   and how many seeds are in each starting house (4+). Four seeds in each house is the traditional method.
-4. If AI players are selected, write a single search time for the AI in milliseconds (0+). 
-   A higher value increases the performance of the AI. A value of 50 is a good default.
-   
-**System Requirements**
-- Java 13
-- A desire to play!
-
-**Project Members:**
-Peter 
-Kasper Jørgensen
-Tobias van Deurs Lundsgaard
-Connor Wall
