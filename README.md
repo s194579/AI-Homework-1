@@ -1,5 +1,8 @@
 # AI-Homework-1
 
+**Game:**
+Kalaha (2 players, human or AI)
+
 **Installation:**
 1. Compile the project source code (we used Java version 13).
 2. Run Main in Application.java 
@@ -17,9 +20,6 @@
 - Peter Revsbech
 - Tobias van Deurs Lundsgaard
 - Connor Wall
-
-**Game:**
-Kalaha (2 players, human or AI)
 
 **Rules:**
 The goal of this two-player game is to collect more seeds in our store than our opponent. 
