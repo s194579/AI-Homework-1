@@ -1,14 +1,14 @@
 # AI-Homework-1
 
 **Installation:**
-1. Compile the project source code (we used Java verison 13).
+1. Compile the project source code (we used Java version 13).
 2. Run Main in Application.java 
-3. Follow printed out game instructions to decide on which players are human, which are AI, 
-   and how many seeds are in each starting house (4+). Four seeds in each house is the traditional method.
+3. Follow printed-out game instructions to decide on which players are human, which are AI, 
+   and how many seeds are in each starting house (4+). Four seeds in each house is the traditional method of play.
 4. If AI players are selected, write a single search time for the AI in milliseconds (0+). 
    A higher value increases the performance of the AI. A value of 50 is a good default.
    
-**System Requirements**
+**System Requirements:**
 - Java 13
 - A desire to play!
 
@@ -25,7 +25,7 @@ Kalaha (2 players, human or AI)
 The goal of this two-player game is to collect more seeds in our store than our opponent. 
 Player sides are divided such that Index 0 (left end) is the store of player 2, Index 7 (right end) is the store of player 1, 
 Index 1-6 (bottom) are the houses of player 1, Index 8-13 (top) are the houses of player 2. 
-At the start of a players turn, the player chooses a non-empty house on their own side, takes all the seeds from the house, moves in the direction of play (counter clockwise), 
+At the start of a player's turn, the player chooses a non-empty house on their own side, takes all the seeds from the house, moves in the direction of play (counterclockwise), 
 and drops them one by one into the subsequent houses and into their own store. Only when a player completes a turn by placing the last seed of the initially 
 selected house in their own store may they take an extra turn.
 
