@@ -12,16 +12,19 @@ public class Application {
         boolean isPlayerAI = false;
         Scanner scanner = new Scanner(System.in);
         System.out.println("Player1:");
+        System.out.println("Write H for human player or AI for AI player");
         String player1 = scanner.nextLine();
 
         System.out.println("Player2:");
+        System.out.println("Write H for human player or AI for AI player");
         String player2 = scanner.nextLine();
 
-        System.out.println("Number of seeds in each house:");
+        System.out.println("Give the number of starting seeds in each house:");
         int initialSeedsPrHouse = scanner.nextInt();
 
         if(player1.equals("AI") || player2.equals("AI")) {
             System.out.println("Time the AI has on each search layer:");
+            System.out.println("Time is in milliseconds");
             searchTimeMillis = scanner.nextInt();
         }
 
