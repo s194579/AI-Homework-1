@@ -6,7 +6,7 @@ Kalaha (2 players, human or AI)
 The goal of this two-player game is to collect more seeds in our store than our opponent. 
 Player sides are divided such that Index 0 (left end) is the store of player 2, Index 7 (right end) is the store of player 1, 
 Index 1-6 (bottom) are the houses of player 1, Index 8-13 (top) are the houses of player 2. 
-At the start of a players turn, the player chooses a non-empty house, takes all the seeds from the house, moves in the direction of play (counter clockwise), 
+At the start of a players turn, the player chooses a non-empty house on their own side, takes all the seeds from the house, moves in the direction of play (counter clockwise), 
 and drops them one by one into the subsequent houses and into their own store. Only when a player completes a turn by placing the last seed of the previously 
 selected house in their own store may they take an extra turn.
 
