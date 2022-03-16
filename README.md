@@ -18,7 +18,7 @@ can clear the board in a single turn. For example, the longest possible chain on
 **Installation:**
 1. Install the project source code in zip file and run.
 2. Run Main in Application.java 
-3. Follow printed out game instructions to decide in which players are human, which are AI, 
+3. Follow printed out game instructions to decide on which players are human, which are AI, 
    and how many seeds are in each starting house (4+). Four seeds in each house is the traditional method.
 4. If AI players are selected, write a single search time for the AI in milliseconds (0+). 
-   A higher value increases the performance of the AI. 
+   A higher value increases the performance of the AI. A value of 50 is a good default.
