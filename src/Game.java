@@ -72,7 +72,7 @@ public class Game {
 
     //MinMax methods
     //Actions: Gives legal actions in a current state
-    public ArrayList<Integer> Actions(State state){
+    public ArrayList<Integer> actions(State state){
         int[] data = state.getData();
         ArrayList<Integer> legalMoves = new ArrayList<Integer>();
         //Handle if we are P1 or P2

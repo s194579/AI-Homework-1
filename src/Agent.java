@@ -11,8 +11,8 @@ public class Agent implements Player{
     long searchTimeMillis = 50;
     int minimalValue = -10000;
     int maximalValue = 10000;
-    int winningValue = maximalValue-1;
-    int losingValue = minimalValue+1;
+    int p1WinningValue = maximalValue-1;
+    int p2WinningValue = minimalValue+1;
     Node goalNodeThisTurn;
     Game game = new Game();
     public int extNodesEvaluated = 0;
@@ -43,14 +43,16 @@ public class Agent implements Player{
     void iterativeDeepeningMinMax(Node rootNode){
         long t0 = System.currentTimeMillis();
         searchDepth = 1;
+        boolean maximizing = rootNode.state.isP1Turn();
         while (true){
             long t = System.currentTimeMillis() - t0;
             if (t> searchTimeMillis){
                 break;
             }
             extNodesEvaluated = 0;
-            int val = miniMax(rootNode, searchDepth , minimalValue, maximalValue,true);
-            if (val == winningValue){
+            int val = miniMax(rootNode, searchDepth , minimalValue, maximalValue,maximizing);
+            boolean winningValue = (p1WinningValue == val && maximizing) || (val ==p2WinningValue && !maximizing);
+            if (winningValue){
                 break;//If we have found a solution where we won - don't search any further
             }
             searchDepth++;
@@ -192,7 +194,7 @@ public class Agent implements Player{
     public List<Node> expandNode(Node node){
         List<Node> children = new ArrayList<>();
         State initState = node.state;
-        ArrayList<Integer> moves = game.Actions(initState);
+        ArrayList<Integer> moves = game.actions(initState);
 
         for(int i = 0; i < moves.size(); i++){
             State cloneState = initState.clone();
@@ -217,9 +219,9 @@ public class Agent implements Player{
         if (pointdiff == 0 ){
             return 0;
         } else if (pointdiff > 0){
-            return winningValue;
+            return p1WinningValue;
         } else {
-            return losingValue;
+            return p2WinningValue;
         }
     }
 
