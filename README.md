@@ -22,3 +22,13 @@ can clear the board in a single turn. For example, the longest possible chain on
    and how many seeds are in each starting house (4+). Four seeds in each house is the traditional method.
 4. If AI players are selected, write a single search time for the AI in milliseconds (0+). 
    A higher value increases the performance of the AI. A value of 50 is a good default.
+   
+**System Requirements**
+- Java 13
+- A desire to play!
+
+**Project Members:**
+Peter 
+Kasper Jørgensen
+Tobias van Deurs Lundsgaard
+Connor Wall
