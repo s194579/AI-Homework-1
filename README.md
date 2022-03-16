@@ -16,7 +16,7 @@ can clear the board in a single turn. For example, the longest possible chain on
 [5,4,2,3,1,1]. It can be shown that, for all size boards, there exists one and only one pattern.
 
 **Installation:**
-1. Install the project source code in zip file and run.
+1. Compile the project source code (we used Java verison 13).
 2. Run Main in Application.java 
 3. Follow printed out game instructions to decide on which players are human, which are AI, 
    and how many seeds are in each starting house (4+). Four seeds in each house is the traditional method.
